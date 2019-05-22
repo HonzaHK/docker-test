@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: dockerfiles/php-a2/Dockerfile
+    networks:
+      - test_network
+    links:
+      - db
+    restart: "always"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/docker-runtime/a2-rootdir:/var/www/html
+      - ./config/php.ini:/usr/local/etc/php/php.ini
+      - ./config/etc/apache2/envvars:/etc/apache2/envvars
+      - ./config/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ~/.ssh:/home/hk/.ssh
+
+  db:
+    image: mariadb
+    networks:
+      - test_network
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - ~/docker-runtime/db-data:/var/lib/mysql
+
+  # composer:
+  #   image: composer
+  #   restart: always
+  #   volumes:
+  #     - ~/docker-runtime/a2-rootdir:/var/www/html
+  #   onrun:
+  #     - composer install
+
+networks:
+  test_network:
