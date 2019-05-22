@@ -1,15 +1,16 @@
-version: "3"
+version: "3.5"
 
 services:
   webserver:
     build:
       context: .
       dockerfile: dockerfiles/php-a2/Dockerfile
-    networks:
-      - test_network
+    container_name: webserver
     links:
       - db
     restart: "always"
+    networks:
+      - test_network
     ports:
       - "80:80"
       - "443:443"
@@ -22,8 +23,11 @@ services:
 
   db:
     image: mariadb
+    container_name: db_container_name
     networks:
-      - test_network
+      test_network:
+        aliases:
+          - db_alias
     ports:
       - "3306:3306"
     restart: always
@@ -32,14 +36,6 @@ services:
       # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - ~/docker-runtime/db-data:/var/lib/mysql
-
-  # composer:
-  #   image: composer
-  #   restart: always
-  #   volumes:
-  #     - ~/docker-runtime/a2-rootdir:/var/www/html
-  #   onrun:
-  #     - composer install
 
 networks:
   test_network:
