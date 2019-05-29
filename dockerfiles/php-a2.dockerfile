@@ -15,11 +15,13 @@ RUN \
     #
     #install all
     apt-get install -y iputils-ping && \
+    apt-get install -y nmap && \
     apt-get install -y zip unzip && \
     apt-get install -y git && \
+    apt-get install -y mysql-client && \
     apt-get install -y nodejs && \
     apt-get install -y yarn && \
-    docker-php-ext-install mysqli pdo pdo_mysql && \
+    docker-php-ext-install pdo pdo_mysql && \
     a2enmod rewrite
 
 #add user inside image so we can run commands without sudo
@@ -33,3 +35,16 @@ RUN composer global require hirak/prestissimo
 
 #switch back to root
 USER root
+
+#copy config files
+COPY [ \
+        "./build/server/php.ini", \
+        "./build/server/envvars", \
+        "./build/server/000-default.conf",\
+        "./" \
+    ]
+
+#move the files to correct directory
+RUN mv ./php.ini /usr/local/etc/php/php.ini && \
+    mv ./envvars /etc/apache2/envvars && \
+    mv ./000-default.conf /etc/apache2/sites-enabled/000-default.conf

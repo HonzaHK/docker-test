@@ -4,30 +4,24 @@ services:
   webserver:
     build:
       context: .
-      dockerfile: dockerfiles/php-a2/Dockerfile
-    container_name: webserver
-    links:
-      - db
+      dockerfile: dockerfiles/php-a2.dockerfile
+    container_name: webserver_container_name
     restart: "always"
-    networks:
-      - test_network
+    network_mode: "host"
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ~/docker-runtime/a2-rootdir:/var/www/html
-      - ./config/php.ini:/usr/local/etc/php/php.ini
-      - ./config/etc/apache2/envvars:/etc/apache2/envvars
-      - ./config/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ~/.ssh:/home/hk/.ssh
+      - ~/.ssh:${DIR_SSH}:ro
+      - ~/.npmrc:${PATH_NPMRC}:ro
 
   db:
-    image: mariadb
+    build:
+      context: .
+      dockerfile: dockerfiles/mariadb.dockerfile
     container_name: db_container_name
-    networks:
-      test_network:
-        aliases:
-          - db_alias
+    network_mode: "host"
     ports:
       - "3306:3306"
     restart: always
@@ -39,3 +33,4 @@ services:
 
 networks:
   test_network:
+    name: custom_network_name

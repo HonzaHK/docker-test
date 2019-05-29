@@ -31,3 +31,9 @@ cd /var/www/html/neziskovky
   - containers: `docker rm -f $(docker container ls -a -q)`
   - networks: `docker network rm $(docker network ls -q)`
   - all: `docker rm -f $(docker container ls -a -q); docker rmi -f $(docker image ls -q); docker network rm $(docker network ls -q)`
+
+## check docker-compose.yml with .env variables filled
+
+```
+docker-compose config
+```
