@@ -12,7 +12,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ~/docker-runtime/a2-rootdir:/var/www/html
+      - ./runtime/a2root:/var/www/html
       - ~/.ssh:${DIR_SSH}:ro
       - ~/.npmrc:${PATH_NPMRC}:ro
 
@@ -29,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
-      - ~/docker-runtime/db-data:/var/lib/mysql
+      - ./runtime/db:/var/lib/mysql
 
 networks:
   test_network:

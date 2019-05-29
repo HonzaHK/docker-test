@@ -1,0 +1,3 @@
+#keep the root dirs only
+a2root/*
+db/*
