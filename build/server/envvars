@@ -13,9 +13,9 @@ fi
 # Since there is no sane way to get the parsed apache2 config in scripts, some
 # settings are defined via environment variables and then used in apache2ctl,
 # /etc/init.d/apache2, /etc/logrotate.d/apache2, etc.
-: ${APACHE_RUN_USER:=hk}
+: ${APACHE_RUN_USER:=${WEBSERVER_USER}}
 export APACHE_RUN_USER
-: ${APACHE_RUN_GROUP:=hk}
+: ${APACHE_RUN_GROUP:=${WEBSERVER_USER}}
 export APACHE_RUN_GROUP
 # temporary state file location. This might be changed to /run in Wheezy+1
 : ${APACHE_PID_FILE:=/var/run/apache2$SUFFIX/apache2.pid}

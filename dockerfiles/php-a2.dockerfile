@@ -24,11 +24,14 @@ RUN \
     docker-php-ext-install pdo pdo_mysql && \
     a2enmod rewrite
 
+ARG WEBSERVER_USER
+ENV WEBSERVER_USER ${WEBSERVER_USER}
+
 #add user inside image so we can run commands without sudo
-RUN useradd --create-home --shell /bin/bash hk
+RUN useradd --create-home --shell /bin/bash ${WEBSERVER_USER}
 
 #switch to created user
-USER hk
+USER ${WEBSERVER_USER}
 
 #install composer speedup lib globally
 RUN composer global require hirak/prestissimo

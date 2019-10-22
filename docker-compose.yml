@@ -5,16 +5,19 @@ services:
     build:
       context: .
       dockerfile: dockerfiles/php-a2.dockerfile
+      args:
+        WEBSERVER_USER: ${WEBSERVER_USER}
     container_name: webserver_container_name
     restart: "always"
     network_mode: "host"
     ports:
       - "80:80"
       - "443:443"
+    # user: ${WEBSERVER_USER}
     volumes:
       - ./runtime/a2root:/var/www/html
-      - ~/.ssh:${DIR_SSH}:ro
-      - ~/.npmrc:${PATH_NPMRC}:ro
+      - ${DIR_SSH}:/home/${WEBSERVER_USER}/.ssh:ro
+      - ${PATH_NPMRC}:/home/${WEBSERVER_USER}/.npmrc:ro
 
   db:
     build:
@@ -31,6 +34,6 @@ services:
     volumes:
       - ./runtime/db:/var/lib/mysql
 
-networks:
-  test_network:
-    name: custom_network_name
+# networks:
+#   test_network:
+#     name: custom_network_name
