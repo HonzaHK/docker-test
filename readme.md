@@ -10,6 +10,10 @@ docker-compose up --build -d
 ```
 docker exec -it YOUR_CONTAINER_NAME /bin/bash
 ```
+- disconnect from container (it will exit bash process)
+```
+CTRL + d
+```
 
 - inside container, switch to user created via Dockerfile
 ```

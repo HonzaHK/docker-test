@@ -9,7 +9,7 @@ services:
         WEBSERVER_USER: ${WEBSERVER_USER}
     container_name: webserver_container_name
     restart: "always"
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "80:80"
       - "443:443"
@@ -24,7 +24,7 @@ services:
       context: .
       dockerfile: dockerfiles/mariadb.dockerfile
     container_name: db_container_name
-    network_mode: "host"
+    # network_mode: "host"
     ports:
       - "3306:3306"
     restart: always
