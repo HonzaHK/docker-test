@@ -15,7 +15,7 @@ services:
       - "443:443"
     # user: ${WEBSERVER_USER}
     volumes:
-      - ./runtime/a2root:/var/www/html
+      - ${A2_ROOT}:/var/www/html
       - ${DIR_SSH}:/home/${WEBSERVER_USER}/.ssh:ro
       - ${PATH_NPMRC}:/home/${WEBSERVER_USER}/.npmrc:ro
 
@@ -29,10 +29,10 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      # MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
-      - ./runtime/db:/var/lib/mysql
+      - ${DB_ROOT}:/var/lib/mysql
 
 # networks:
 #   test_network:

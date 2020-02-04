@@ -8,7 +8,7 @@ docker-compose up --build -d
 ## initializing project
 - connect to the webserver container and start bash
 ```
-docker exec -it test_webserver_1 /bin/bash
+docker exec -it YOUR_CONTAINER_NAME /bin/bash
 ```
 
 - inside container, switch to user created via Dockerfile

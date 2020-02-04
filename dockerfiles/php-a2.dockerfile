@@ -18,7 +18,7 @@ RUN \
     apt-get install -y nmap && \
     apt-get install -y zip unzip && \
     apt-get install -y git && \
-    apt-get install -y mysql-client && \
+    apt-get install -y mariadb-client && \
     apt-get install -y nodejs && \
     apt-get install -y yarn && \
     docker-php-ext-install pdo pdo_mysql && \
